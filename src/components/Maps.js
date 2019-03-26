@@ -1,60 +1,68 @@
 import React, { Component } from 'react'
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-const API_KEY = 'AIzaSyCesVJpjlbv8EnZ70nsPWFMl3QQ9tAvzZc'
-const API_URL = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
+const LOCATIONS = [
+    { title: 'Restaurante Angelo', location: { lat: -23.1207456, lng: -46.5541011 } },
+    { title: `McDonald's`, location: { lat: -23.1212862, lng: -46.5545281 } },
+]
 
 class Maps extends Component {
 
     state = {
-        map: '',
-        loaded: false,
-        error: false
+        showingInfoWindow: false,
+        activeMarker: {},
+        selectedPlace: {},
     }
 
-    loadMap = () => {
-        const map = new window.google.maps.Map(document.getElementById('map'), {
-            center: { lat: -23.1207456, lng: -46.5541011 },
-            zoom: 13,
-        })
+    onMarkerClick = (props, marker, e) => {
         this.setState({
-            map: map,
+            selectedPlace: props,
+            activeMarker: marker,
+            showingInfoWindow: true
         });
     }
 
-    componentDidMount() {
-
-        if (!window.google) {
-            const script = document.createElement('script')
-            script.src = API_URL
-            script.async = true
-            script.defer = true
-
-            script.addEventListener('load', () => {
-                this.setState({ loaded: true })
-                this.loadMap()
+    onMapClicked = props => {
+        this.state.showingInfoWindow && (
+            this.setState({
+                showingInfoWindow: false,
+                activeMarker: null
             })
-            script.addEventListener('error', () => {
-                this.setState({ error: true })
-            })
-
-            document.body && document.body.appendChild(script)
-        }
-
+        )
     }
 
     render() {
-        if (this.state.error) {
-            return <div>Error</div>
-        }
-        if (this.state.loaded) {
-            return (
-                <div id="map" role="application"></div>
-            )
-        } else {
-            return <div>Loading</div>
-        }
-    }
+        return (
+            <div id='map' role='application'>
+                <Map
+                    className='map'
+                    google={this.props.google}
+                    zoom={14}
+                    initialCenter={{
+                        lat: -23.1207456,
+                        lng: -46.5541011
+                    }}>
 
+                    {LOCATIONS.map((item, index) => (
+                        <Marker
+                            key={index}
+                            title={item.title}
+                            position={{ lat: item.location.lat, lng: item.location.lng }}
+                            onClick={this.onMarkerClick}
+                        />
+                    ))}
+
+                    <InfoWindow
+                        marker={this.state.activeMarker}
+                        visible={this.state.showingInfoWindow}>
+                        <div>
+                            <h1>{this.state.selectedPlace.title}</h1>
+                        </div>
+                    </InfoWindow>
+                </Map>
+            </div>
+        )
+    }
 }
 
 export default Maps
