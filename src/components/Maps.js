@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-
-const LOCATIONS = [
-    { title: 'Restaurante Angelo', location: { lat: -23.1207456, lng: -46.5541011 } },
-    { title: `McDonald's`, location: { lat: -23.1212862, lng: -46.5545281 } },
-]
+import { Map, InfoWindow, Marker } from 'google-maps-react';
 
 class Maps extends Component {
 
     state = {
+        locations: this.props.places,
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
@@ -32,22 +28,25 @@ class Maps extends Component {
     }
 
     render() {
+        
+        const { locations } = this.state
+
         return (
             <div id='map' role='application'>
                 <Map
                     className='map'
                     google={this.props.google}
-                    zoom={14}
+                    zoom={15}
                     initialCenter={{
                         lat: -23.1207456,
                         lng: -46.5541011
                     }}>
 
-                    {LOCATIONS.map((item, index) => (
+                    {locations.length && locations.map((item, index) => (
                         <Marker
                             key={index}
                             title={item.title}
-                            position={{ lat: item.location.lat, lng: item.location.lng }}
+                            position={{ lat: item.lat, lng: item.lng }}
                             onClick={this.onMarkerClick}
                         />
                     ))}
