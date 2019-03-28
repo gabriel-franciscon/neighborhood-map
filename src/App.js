@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Header from './components/Header'
 import MapWrapper from './components/MapWrapper'
 import './App.css'
 
@@ -9,7 +10,7 @@ const CLIENT_SECRET = 'SDSRLHHRFLY1SNZBXWD2MNRWEAV51VS3BGRTUDM20X22FD4E'
 class App extends Component {
 
 	state = {
-		allPlaces: []
+		allPlaces: [],
 	}
 
 	getPlaces = () => {
@@ -29,12 +30,11 @@ class App extends Component {
 				this.setState({
 					allPlaces: result.response.groups[0].items.map(item => {
 						const { venue } = item
-						const { icon } = venue.categories[0]
 						return {
-							img: `${icon.prefix}`,
 							title: venue.name,
 							lat: venue.location.lat,
-							lng: venue.location.lng
+							lng: venue.location.lng,
+							address: venue.location.formattedAddress.join(' - '),
 						}
 					})
 				})
@@ -42,7 +42,6 @@ class App extends Component {
 			.catch(err => {
 				console.error('Failed retrieving information', err);
 			})
-
 	}
 
 	componentDidMount() {
@@ -51,9 +50,16 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<MapWrapper places={this.state.allPlaces} />
-			</div>
+			<React.Fragment>
+				<Header />
+				<div className="App">
+					<MapWrapper
+						places={this.state.allPlaces}
+						filterPlaces={this.filterPlaces}
+						filteredPlaces={this.state.filteredPlaces}
+					/>
+				</div>
+			</React.Fragment>
 		)
 	}
 }
