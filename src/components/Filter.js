@@ -1,23 +1,29 @@
 import React, { Component } from 'react'
+import { InfoWindow, Marker } from 'google-maps-react'
 
 class Filter extends Component {
 
     state = {
         places: this.props.places,
-        filteredPlaces: []
+        filteredPlaces: [],
+        emptySearch: false
     }
 
     filterPlaces = query => {
 		const filteredPlaces = this.state.places.filter(location => (
 			location.title.toLowerCase().indexOf(query.toLowerCase()) !== -1)
         )
+        const emptySearch = query !== '' && !filteredPlaces.length ? true : false
         this.props.filterMarker(filteredPlaces)
-		this.setState({ filteredPlaces: filteredPlaces })
-	}
+        this.props.setEmptyMarkers(filteredPlaces)
+		this.setState({ 
+            filteredPlaces: filteredPlaces,
+            emptySearch: emptySearch
+        })
+    }
 
     render() {
-        const { places } = this.state
-        const { filteredPlaces } = this.state
+        const { places, filteredPlaces, emptySearch } = this.state
         const placesToShow = filteredPlaces.length ? filteredPlaces : places
 
         return (
@@ -29,7 +35,7 @@ class Filter extends Component {
                     onChange={event => this.filterPlaces(event.target.value)}
                 />
                 <ul>
-                    {placesToShow && placesToShow.map((place, index) => (
+                    {!emptySearch && placesToShow && placesToShow.map((place, index) => (
                         <li key={index}>
                             {place.title}
                         </li>

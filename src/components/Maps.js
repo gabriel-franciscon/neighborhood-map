@@ -10,6 +10,7 @@ class Maps extends Component {
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
+        emptyMarkers: false
     }
 
     onMarkerClick = (props, marker, e) => {
@@ -17,7 +18,7 @@ class Maps extends Component {
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true
-        });
+        })
     }
 
     onMapClicked = props => {
@@ -46,11 +47,16 @@ class Maps extends Component {
     filterMarker = filteredPlaces => {
         const locationsToShow = filteredPlaces.length ? filteredPlaces : []
 		this.setState({ locationsToShow: locationsToShow })
-	}
+    }
+    
+    setEmptyMarkers = filteredPlaces => {
+        const emptyMarkers = !filteredPlaces.length ? true : false
+        this.setState({ emptyMarkers: emptyMarkers })
+    }
 
     render() {
         
-        const { locations } = this.state
+        const { locations, emptyMarkers } = this.state
         const locationsToShow = this.state.locationsToShow.length ? this.state.locationsToShow : locations
 
         return (
@@ -59,6 +65,8 @@ class Maps extends Component {
                     places={locations}
                     locationsToShow={this.state.locationsToShow}
                     filterMarker={this.filterMarker}
+                    emptyMarkers={emptyMarkers}
+                    setEmptyMarkers={this.setEmptyMarkers}
                 />
                 <div id='map' role='application'>
                     <Map
@@ -70,7 +78,7 @@ class Maps extends Component {
                             lng: -46.5541011
                         }}>
 
-                        {locationsToShow.length && locationsToShow.map((item, index) => (
+                        {!emptyMarkers && locationsToShow.length && locationsToShow.map((item, index) => (
                             <Marker
                                 key={index}
                                 title={item.title}
