@@ -5,12 +5,15 @@ import Filter from './Filter'
 class Maps extends Component {
 
     state = {
+        mapReady: false,
+        map: {},
+        google: {},
         locations: this.props.places,
         locationsToShow: [],
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
-        emptyMarkers: false
+        emptyMarkers: false,
     }
 
     onMarkerClick = (props, marker, e) => {
@@ -21,7 +24,7 @@ class Maps extends Component {
         })
     }
 
-    onMapClicked = props => {
+    onMapClicked = () => {
         this.state.showingInfoWindow && (
             this.setState({
                 showingInfoWindow: false,
@@ -54,24 +57,59 @@ class Maps extends Component {
         this.setState({ emptyMarkers: emptyMarkers })
     }
 
+    infoWindowOnFilter = place => {
+        this.setState({
+            selectedPlace: place,
+            activeMarker: new window.google.maps.Marker({
+                map: this.state.map,
+                position: place.location,
+                title: place.title
+            }),
+            showingInfoWindow: true
+        })
+    }
+
+    mapOnReady = (mapProps, map) => {
+        const { google } = mapProps
+
+        this.setState({
+            mapReady: true,
+            map: map,
+            google: google
+        })
+    }
+
+    windowHasClosed = () => {
+        this.setState({
+            showingInfoWindow: false,
+            activeMarker: {},
+            selectedPlace: {},
+            showingInfoWindowOnFilter: false,
+            infoWindoPosition: undefined,
+        })
+    }
+
     render() {
         
-        const { locations, emptyMarkers } = this.state
+        const { activeMarker, emptyMarkers, locations, selectedPlace, showingInfoWindow  } = this.state
         const locationsToShow = this.state.locationsToShow.length ? this.state.locationsToShow : locations
 
         return (
             <React.Fragment>
                 <Filter
                     places={locations}
-                    locationsToShow={this.state.locationsToShow}
+                    locationsToShow={locationsToShow}
                     filterMarker={this.filterMarker}
                     emptyMarkers={emptyMarkers}
                     setEmptyMarkers={this.setEmptyMarkers}
+                    infoWindowOnFilter={this.infoWindowOnFilter}
                 />
                 <div id='map' role='application'>
                     <Map
                         className='map'
                         google={this.props.google}
+                        onReady={this.mapOnReady}
+                        onClick={this.onMapClicked}
                         zoom={15}
                         initialCenter={{
                             lat: -23.1207456,
@@ -82,21 +120,23 @@ class Maps extends Component {
                             <Marker
                                 key={index}
                                 title={item.title}
-                                position={{ lat: item.lat, lng: item.lng }}
+                                position={{ lat: item.location.lat, lng: item.location.lng }}
                                 onClick={this.onMarkerClick}
                             />
                         ))}
 
                         <InfoWindow
-                            marker={this.state.activeMarker}
-                            visible={this.state.showingInfoWindow}>
+                            marker={activeMarker}
+                            visible={showingInfoWindow}
+                            onClose={this.windowHasClosed}>
                             <div>
-                                <h3>{this.state.selectedPlace.title}</h3>
+                                <h3>{selectedPlace.title}</h3>
                                 <p>{
-                                    this.markerInfo(this.state.selectedPlace)
+                                    this.markerInfo(selectedPlace)
                                 }</p>
                             </div>
                         </InfoWindow>
+                        
                     </Map>
                 </div>
             </React.Fragment>

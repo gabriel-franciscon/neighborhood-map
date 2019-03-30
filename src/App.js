@@ -32,8 +32,7 @@ class App extends Component {
 						const { venue } = item
 						return {
 							title: venue.name,
-							lat: venue.location.lat,
-							lng: venue.location.lng,
+							location: { lat: venue.location.lat, lng: venue.location.lng },
 							address: venue.location.formattedAddress.join(' - '),
 						}
 					})

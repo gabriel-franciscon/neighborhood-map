@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { InfoWindow, Marker } from 'google-maps-react'
 
 class Filter extends Component {
 
@@ -36,7 +35,7 @@ class Filter extends Component {
                 />
                 <ul>
                     {!emptySearch && placesToShow && placesToShow.map((place, index) => (
-                        <li key={index}>
+                        <li key={index} onClick={() => { this.props.infoWindowOnFilter(place) }}>
                             {place.title}
                         </li>
                     ))}
