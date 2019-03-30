@@ -17,6 +17,7 @@ class Maps extends Component {
     }
 
     onMarkerClick = (props, marker, e) => {
+        console.log(marker)
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -80,6 +81,8 @@ class Maps extends Component {
     }
 
     windowHasClosed = () => {
+        this.state.showingInfoWindow && this.state.activeMarker.setMap(null)
+        
         this.setState({
             showingInfoWindow: false,
             activeMarker: {},
