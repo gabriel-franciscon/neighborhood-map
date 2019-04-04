@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Filter extends Component {
 
@@ -40,6 +41,11 @@ class Filter extends Component {
                         </li>
                     ))}
                 </ul>
+                <div className="foursquare">
+                    <a href="https://pt.foursquare.com/" title="Powered by Foursquare">
+                        Powered by <FontAwesomeIcon icon={['fab', 'foursquare']} />
+                    </a>
+                </div>
             </aside>
         )
     }

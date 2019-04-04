@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import Header from './components/Header'
 import MapWrapper from './components/MapWrapper'
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFoursquare } from '@fortawesome/free-brands-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import './App.css'
+
+library.add(faBars, faFoursquare)
 
 const FOURSQUARE_API = 'https://api.foursquare.com/v2/venues/explore'
 const CLIENT_ID = 'LU1LLAIZXFGH4FPXI3SEWZK3ZVOZ1HCWWYDKXD2SOJJEXCAL'

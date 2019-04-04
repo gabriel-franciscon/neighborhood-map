@@ -14,7 +14,7 @@
 
 body {
 	font-family: 'Lato', sans-serif;
-	color: #fff;
+	color: #333;
 }
 
 ul, li {
@@ -22,29 +22,52 @@ ul, li {
 }
 
 header {
+	position: relative;
 	text-align: center;
 	padding: 12px 0;
 	background: #b71c1c;
-	border-top: 5px solid #7f0000
+	border-top: 5px solid #7f0000;
 }
 
 header h1 {
+	color: #fff;
 	margin: 0;
+	letter-spacing: 4px;
+}
+
+.toggle-filter {
+	padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #ffcdd2;
+    font-size: 30px;
+    position: absolute;
+    left: 25px;
+    top: 50%;
+	transform: translateY(-50%);
+	cursor: pointer;
 }
 
 .filter {
 	position: fixed;
-	left: 0;
+	left: -280px;
 	bottom: 0;
 	background: #fff;
-	width: 20%;
+	width: 280px;
 	height: calc(100% - 68px);
 	overflow: auto;
 	padding: 20px;
 	background: #f05545;
+	transition: left .3s ease-in-out;
+}
+
+.filter.active {
+	left: 0;
 }
 
 .filter input {
+	position: relative;
 	display: block;
 	margin: 0 auto 20px;
 	width: 100%;
@@ -55,30 +78,108 @@ header h1 {
     line-height: 33px;
     padding: 0 8px;
 	border-radius: 20px;
-	border: 2px solid #b71c1c;
+	border: 2px solid #e53935;
 }
 
 .filter ul {
 	padding: 0;
-	margin: 0;
+	margin: 0 0 40px;
 }
 
 .filter ul > li {
+	color: #fff;
 	cursor: pointer;
 	padding: 8px 0;
 	line-height: normal;
 	border-bottom: 1px solid #ffebee;
 	transition: all .3s ease-in-out;
 }
+
 .filter ul > li:hover {
 	color: #7f0000;
 	border-color: #7f0000;
+}
+
+.filter::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #ffebee;
+}
+
+.filter::-webkit-scrollbar {
+	width: 6px;
+    background-color: #ffebee;
+}
+
+.filter::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+    background-color: #b71c1c;
+}
+
+
+.foursquare {
+	position: fixed;
+	bottom: 12px;
+    left: 132px;
+}
+
+.foursquare a {
+	color: #7f0000;
+    background: #ffebee;
+	display: inline-block;
+	text-decoration: none;
+    border-radius: 20px;
+	padding: 6px 12px;
+	opacity: 0.8;
+	box-shadow: 0 8px 6px -6px rgba(0,0,0,.8);
+	transition: .3s;
+}
+
+.foursquare a:hover {
+	opacity: 1;
+	box-shadow: 0 8px 6px -6px rgba(0,0,0,1);
 }
 
 #map {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-	width: 80%;
+	width: 100%;
 	height: calc(100% - 68px);
+	transition: all .3s ease-in-out;
+}
+
+.filter.active + #map {
+	width: calc(100% - 280px);
+}
+
+@media screen and (max-width: 767px) {
+	header {
+		padding: 17px 0;
+	}
+
+	header h1 {
+		font-size: 24px;
+		letter-spacing: 2px;
+	}
+
+	.toggle-filter {
+		font-size: 26px;
+	}
+
+	.filter {
+		width: 260px;
+	}
+
+	.filter ul > li {
+		font-size: 14px;
+	}
+
+	.filter.active + #map {
+		width: calc(100% - 260px);
+	}
+
+	.foursquare {
+		bottom: 14px;
+		left: 112px;
+	}
 }
