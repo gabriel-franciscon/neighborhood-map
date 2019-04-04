@@ -1,20 +1,84 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+* {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box
+}
+
+body {
+	font-family: 'Lato', sans-serif;
+	color: #fff;
+}
+
 ul, li {
 	list-style: none;
+}
+
+header {
+	text-align: center;
+	padding: 12px 0;
+	background: #b71c1c;
+	border-top: 5px solid #7f0000
+}
+
+header h1 {
+	margin: 0;
 }
 
 .filter {
 	position: fixed;
 	left: 0;
-	top: 0;
+	bottom: 0;
 	background: #fff;
 	width: 20%;
-	height: 100%;
+	height: calc(100% - 68px);
 	overflow: auto;
+	padding: 20px;
+	background: #f05545;
 }
+
+.filter input {
+	display: block;
+	margin: 0 auto 20px;
+	width: 100%;
+	text-align: center;
+	background: #fff;
+	color: #333;
+	outline: none;
+    line-height: 33px;
+    padding: 0 8px;
+	border-radius: 20px;
+	border: 2px solid #b71c1c;
+}
+
+.filter ul {
+	padding: 0;
+	margin: 0;
+}
+
+.filter ul > li {
+	cursor: pointer;
+	padding: 8px 0;
+	line-height: normal;
+	border-bottom: 1px solid #ffebee;
+	transition: all .3s ease-in-out;
+}
+.filter ul > li:hover {
+	color: #7f0000;
+	border-color: #7f0000;
+}
+
 #map {
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	right: 0;
 	width: 80%;
-	height: 100%;
+	height: calc(100% - 68px);
 }
