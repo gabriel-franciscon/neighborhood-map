@@ -40,7 +40,8 @@ class Maps extends Component {
             for (const location of locations) {
                 if (location.id === selectedPlace.id) {
                     return (
-                        <div>
+                        <div className="info-window">
+                            <h3>{location.title}</h3>
                             <p>
                                 <strong>Categorie: </strong> {location.categorie}
                             </p>
@@ -142,8 +143,7 @@ class Maps extends Component {
                             visible={showingInfoWindow}
                             onClose={this.windowHasClosed}>
                             <div>
-                                <h3>{selectedPlace.title}</h3>
-                                <p>{this.markerInfo(selectedPlace)}</p>
+                                {this.markerInfo(selectedPlace)}
                             </div>
                         </InfoWindow>
                         

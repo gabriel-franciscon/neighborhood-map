@@ -152,6 +152,18 @@ header h1 {
 	width: calc(100% - 280px);
 }
 
+.info-window {
+	width: 260px;
+}
+
+.info-window p {
+	display: flex;
+}
+
+.info-window strong {
+	margin-right: 5px;
+}
+
 .flex-container {
 	display: flex;
     align-items: center;
