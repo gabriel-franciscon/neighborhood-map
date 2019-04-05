@@ -42,7 +42,11 @@ class Filter extends Component {
                     ))}
                 </ul>
                 <div className="foursquare">
-                    <a href="https://pt.foursquare.com/" title="Powered by Foursquare">
+                    <a
+                        href="https://pt.foursquare.com/"
+                        title="Powered by Foursquare"
+                        target="_blank"
+                        rel="noopener noreferrer">
                         Powered by <FontAwesomeIcon icon={['fab', 'foursquare']} />
                     </a>
                 </div>

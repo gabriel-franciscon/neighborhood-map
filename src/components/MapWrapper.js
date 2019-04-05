@@ -4,7 +4,7 @@ import Maps from '../components/Maps'
 export default GoogleApiWrapper(
     props => ({
         apiKey: 'AIzaSyCesVJpjlbv8EnZ70nsPWFMl3QQ9tAvzZc',
-        places: props.places
-    })
-    // LoadingContainer: LoadingContainer
+        places: props.places,
+        LoadingContainer: props.loadingContainer
+    })    
 )(Maps)

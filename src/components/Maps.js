@@ -16,8 +16,7 @@ class Maps extends Component {
         emptyMarkers: false,
     }
 
-    onMarkerClick = (props, marker, e) => {
-        console.log(marker)
+    onMarkerClick = (props, marker) => {
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -39,8 +38,17 @@ class Maps extends Component {
 
         if (locations.length) {
             for (const location of locations) {
-                if (location.title === selectedPlace.title) {
-                    return location.address
+                if (location.id === selectedPlace.id) {
+                    return (
+                        <div>
+                            <p>
+                                <strong>Categorie: </strong> {location.categorie}
+                            </p>
+                            <p>
+                                <strong>Address: </strong> {location.address}
+                            </p>
+                        </div>
+                    )
                 }
             }
         }
@@ -93,7 +101,7 @@ class Maps extends Component {
     }
 
     render() {
-        
+
         const { activeMarker, emptyMarkers, locations, selectedPlace, showingInfoWindow  } = this.state
         const locationsToShow = this.state.locationsToShow.length ? this.state.locationsToShow : locations
 
@@ -119,9 +127,10 @@ class Maps extends Component {
                             lng: -46.5541011
                         }}>
 
-                        {!emptyMarkers && locationsToShow.length && locationsToShow.map((item, index) => (
+                        {!emptyMarkers && locationsToShow.length && locationsToShow.map(item => (
                             <Marker
-                                key={index}
+                                key={item.id}
+                                id={item.id}
                                 title={item.title}
                                 position={{ lat: item.location.lat, lng: item.location.lng }}
                                 onClick={this.onMarkerClick}
@@ -134,9 +143,7 @@ class Maps extends Component {
                             onClose={this.windowHasClosed}>
                             <div>
                                 <h3>{selectedPlace.title}</h3>
-                                <p>{
-                                    this.markerInfo(selectedPlace)
-                                }</p>
+                                <p>{this.markerInfo(selectedPlace)}</p>
                             </div>
                         </InfoWindow>
                         

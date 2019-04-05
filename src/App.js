@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import Header from './components/Header'
 import MapWrapper from './components/MapWrapper'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFoursquare } from '@fortawesome/free-brands-svg-icons'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faSpinner, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import './App.css'
 
-library.add(faBars, faFoursquare)
+library.add(faBars, faSpinner, faExclamationTriangle, faFoursquare)
 
 const FOURSQUARE_API = 'https://api.foursquare.com/v2/venues/explore'
 const CLIENT_ID = 'LU1LLAIZXFGH4FPXI3SEWZK3ZVOZ1HCWWYDKXD2SOJJEXCAL'
@@ -17,6 +17,8 @@ class App extends Component {
 
 	state = {
 		allPlaces: [],
+		error: false,
+		errorMessage: ''
 	}
 
 	getPlaces = () => {
@@ -33,19 +35,26 @@ class App extends Component {
 
 		fetch(url).then(response => response.json())
 			.then(result => {
+				console.log(result.response)
 				this.setState({
 					allPlaces: result.response.groups[0].items.map(item => {
 						const { venue } = item
 						return {
+							id: venue.id,
 							title: venue.name,
 							location: { lat: venue.location.lat, lng: venue.location.lng },
 							address: venue.location.formattedAddress.join(' - '),
+							categorie: venue.categories[0].shortName
 						}
 					})
 				})
 			})
 			.catch(err => {
-				console.error('Failed retrieving information', err);
+				console.error('Failed retrieving information', err)
+				this.setState({
+					error: true,
+					errorMessage: err
+				})
 			})
 	}
 
@@ -54,15 +63,35 @@ class App extends Component {
 	}
 
 	render() {
+		const loadingContainer = () => (
+			<div className="loading flex-container">
+				<div className="loading-icon">
+					<FontAwesomeIcon icon={faSpinner}/>
+				</div>
+				<p>Loading, please wait...</p>
+			</div>
+		)
+
 		return (
 			<React.Fragment>
 				<Header />
 				<div className="App">
-					<MapWrapper
-						places={this.state.allPlaces}
-						filterPlaces={this.filterPlaces}
-						filteredPlaces={this.state.filteredPlaces}
-					/>
+					{this.state.error ? (
+						<div className="error flex-container">
+							<div className="error-icon">
+								<FontAwesomeIcon icon={faExclamationTriangle}/>
+							</div>
+							<p>Sorry, there was an error loading the map. Please try again later.</p>
+							<div>{`${this.state.errorMessage}`}</div>
+						</div>
+					) : (
+						<MapWrapper
+							places={this.state.allPlaces}
+							filterPlaces={this.filterPlaces}
+							filteredPlaces={this.state.filteredPlaces}
+							loadingContainer={loadingContainer}
+						/>
+					)}
 				</div>
 			</React.Fragment>
 		)
