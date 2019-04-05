@@ -103,7 +103,7 @@ class Maps extends Component {
 
     render() {
 
-        const { activeMarker, emptyMarkers, locations, selectedPlace, showingInfoWindow  } = this.state
+        const { activeMarker, emptyMarkers, locations, selectedPlace, showingInfoWindow } = this.state
         const locationsToShow = this.state.locationsToShow.length ? this.state.locationsToShow : locations
 
         return (
@@ -116,7 +116,7 @@ class Maps extends Component {
                     setEmptyMarkers={this.setEmptyMarkers}
                     infoWindowOnFilter={this.infoWindowOnFilter}
                 />
-                <div id='map' role='application'>
+                <main id='map' role='application' aria-label="Atibaia Map">
                     <Map
                         className='map'
                         google={this.props.google}
@@ -148,7 +148,7 @@ class Maps extends Component {
                         </InfoWindow>
                         
                     </Map>
-                </div>
+                </main>
             </React.Fragment>
         )
     }

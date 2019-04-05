@@ -27,16 +27,21 @@ class Filter extends Component {
         const placesToShow = filteredPlaces.length ? filteredPlaces : places
 
         return (
-            <aside className='filter'>
+            <aside className='filter' tabIndex='0'>
                 <input
                     type='text'
                     placeholder='Search for places'
                     aria-label='Search for places'
+                    tabIndex="1"
                     onChange={event => this.filterPlaces(event.target.value)}
                 />
                 <ul>
                     {!emptySearch && placesToShow && placesToShow.map((place, index) => (
-                        <li key={index} onClick={() => { this.props.infoWindowOnFilter(place) }}>
+                        <li
+                            key={index}
+                            aria-label={place.title}
+                            tabIndex="1"
+                            onClick={() => { this.props.infoWindowOnFilter(place) }}>
                             {place.title}
                         </li>
                     ))}
