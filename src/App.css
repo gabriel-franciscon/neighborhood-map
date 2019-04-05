@@ -35,6 +35,10 @@ header h1 {
 	letter-spacing: 4px;
 }
 
+header h1 svg {
+	margin-right: 10px;
+}
+
 .toggle-filter {
 	padding: 0;
     border: none;
@@ -210,12 +214,16 @@ header h1 {
 
 @media screen and (max-width: 767px) {
 	header {
-		padding: 17px 0;
+		padding: 20px 50px;
 	}
 
 	header h1 {
-		font-size: 24px;
+		font-size: 20px;
 		letter-spacing: 2px;
+	}
+
+	header h1 svg {
+		display: none !important;
 	}
 
 	.toggle-filter {

@@ -14,7 +14,7 @@ class Header extends Component {
                 <button className="toggle-filter" title="Search for places" tabIndex="1" onClick={this.toggleFilter}>
                     <FontAwesomeIcon icon="bars" />
                 </button>    
-                <h1>Atibaia Places</h1>
+                <h1><FontAwesomeIcon icon="utensils" /> Atibaia Food Places</h1>
             </header>
         )
     }

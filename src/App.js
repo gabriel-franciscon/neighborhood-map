@@ -4,10 +4,10 @@ import MapWrapper from './components/MapWrapper'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faFoursquare } from '@fortawesome/free-brands-svg-icons'
-import { faBars, faSpinner, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faSpinner, faExclamationTriangle, faUtensils } from '@fortawesome/free-solid-svg-icons'
 import './App.css'
 
-library.add(faBars, faSpinner, faExclamationTriangle, faFoursquare)
+library.add(faBars, faSpinner, faExclamationTriangle, faUtensils, faFoursquare)
 
 const FOURSQUARE_API = 'https://api.foursquare.com/v2/venues/explore'
 const CLIENT_ID = 'LU1LLAIZXFGH4FPXI3SEWZK3ZVOZ1HCWWYDKXD2SOJJEXCAL'
