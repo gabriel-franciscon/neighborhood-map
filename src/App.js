@@ -35,7 +35,6 @@ class App extends Component {
 
 		fetch(url).then(response => response.json())
 			.then(result => {
-				console.log(result.response)
 				this.setState({
 					allPlaces: result.response.groups[0].items.map(item => {
 						const { venue } = item

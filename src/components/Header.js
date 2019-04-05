@@ -11,7 +11,7 @@ class Header extends Component {
     render() {
         return (
             <header>
-                <button className="toggle-filter" title="Search for places" tabindex="1" onClick={this.toggleFilter}>
+                <button className="toggle-filter" title="Search for places" tabIndex="1" onClick={this.toggleFilter}>
                     <FontAwesomeIcon icon="bars" />
                 </button>    
                 <h1>Atibaia Places</h1>
