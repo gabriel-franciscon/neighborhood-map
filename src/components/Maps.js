@@ -115,6 +115,7 @@ class Maps extends Component {
                     emptyMarkers={emptyMarkers}
                     setEmptyMarkers={this.setEmptyMarkers}
                     infoWindowOnFilter={this.infoWindowOnFilter}
+                    windowHasClosed={this.windowHasClosed}
                 />
                 <main id='map' role='application' aria-label="Atibaia Map">
                     <Map

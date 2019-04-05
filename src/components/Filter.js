@@ -20,6 +20,7 @@ class Filter extends Component {
             filteredPlaces: filteredPlaces,
             emptySearch: emptySearch
         })
+        this.props.windowHasClosed()
     }
 
     render() {
