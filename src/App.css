@@ -245,7 +245,7 @@ header h1 svg {
 	}
 
 	.filter {
-		width: 260px;
+		width: 220px;
 	}
 
 	.filter ul > li {
@@ -253,7 +253,7 @@ header h1 svg {
 	}
 
 	.filter.active + #map {
-		width: calc(100% - 260px);
+		width: calc(100% - 220px);
 	}
 
 	.foursquare {
