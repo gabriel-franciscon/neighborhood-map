@@ -21,21 +21,12 @@ class Maps extends Component {
 
     // Set the active marker to the state when clicking marker
     onMarkerClick = (props, marker) => {
+        this.clearSelectedPlace()
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true
         })
-    }
-
-    // Remove the active marker to the state when clicking map
-    onMapClicked = () => {
-        this.state.showingInfoWindow && (
-            this.setState({
-                showingInfoWindow: false,
-                activeMarker: null
-            })
-        )
     }
 
     // Constructs marker information to display in info window
@@ -137,7 +128,7 @@ class Maps extends Component {
                         className='map'
                         google={this.props.google}
                         onReady={this.mapOnReady}
-                        onClick={this.onMapClicked}
+                        onClick={this.clearSelectedPlace}
                         zoom={15}
                         initialCenter={{
                             lat: -23.1207456,
