@@ -35,7 +35,10 @@ class Filter extends Component {
                     placeholder='Search for places'
                     aria-label='Search for places'
                     tabIndex="1"
-                    onChange={event => this.filterPlaces(event.target.value)}
+                    onChange={event => {
+                        this.filterPlaces(event.target.value)
+                        this.props.windowHasClosed()
+                    }}
                 />
                 <ul>
                     {!emptySearch && placesToShow && placesToShow.map((place, index) => (
