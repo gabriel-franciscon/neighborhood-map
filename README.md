@@ -9,7 +9,7 @@ This is a project that displays a map with the locations of places to eat in Ati
 ## Get Started
 
 * Clone or download this repository.
-* At a terminal, enter the project folder (example: `cd myreads`) and run the following commands:
+* At a terminal, enter the project folder (example: `cd neighborhood-map`) and run the following commands:
 
 ### Install
 * Install all project dependencies with `npm install`
