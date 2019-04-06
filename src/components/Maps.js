@@ -103,13 +103,13 @@ class Maps extends Component {
         })
     }
 
-    // Close infoWindow
-    windowHasClosed = () => {
+    // Clear selected place when inactiv
+    clearSelectedPlace = () => {
         this.state.showingInfoWindow && this.state.activeMarker.setMap(null)
         
         this.setState({
             showingInfoWindow: false,
-            activeMarker: {},
+            activeMarker: null,
             selectedPlace: {},
             showingInfoWindowOnFilter: false,
             infoWindoPosition: undefined,
@@ -130,7 +130,7 @@ class Maps extends Component {
                     emptyMarkers={emptyMarkers}
                     setEmptyMarkers={this.setEmptyMarkers}
                     infoWindowOnFilter={this.infoWindowOnFilter}
-                    windowHasClosed={this.windowHasClosed}
+                    clearSelectedPlace={this.clearSelectedPlace}
                 />
                 <main id='map' role='application' aria-label="Atibaia Map">
                     <Map
@@ -153,7 +153,7 @@ class Maps extends Component {
                                 onClick={this.onMarkerClick}
                                 icon={{
                                     url: (
-                                        activeMarker && activeMarker.id == item.id
+                                        activeMarker && activeMarker.id === item.id
                                     ) ? (
                                         this.iconMarker('yellow')
                                     ) : (
@@ -166,7 +166,7 @@ class Maps extends Component {
                         <InfoWindow
                             marker={activeMarker}
                             visible={showingInfoWindow}
-                            onClose={this.windowHasClosed}>
+                            onClose={this.clearSelectedPlace}>
                             <div>
                                 {this.markerInfo(selectedPlace)}
                             </div>

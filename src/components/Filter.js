@@ -21,7 +21,7 @@ class Filter extends Component {
             filteredPlaces: filteredPlaces,
             emptySearch: emptySearch
         })
-        this.props.windowHasClosed()
+        this.props.clearSelectedPlace()
     }
 
     render() {
@@ -36,8 +36,8 @@ class Filter extends Component {
                     aria-label='Search for places'
                     tabIndex="1"
                     onChange={event => {
+                        this.props.clearSelectedPlace()
                         this.filterPlaces(event.target.value)
-                        this.props.windowHasClosed()
                     }}
                 />
                 <ul>
@@ -46,7 +46,10 @@ class Filter extends Component {
                             key={index}
                             aria-label={place.title}
                             tabIndex="1"
-                            onClick={() => { this.props.infoWindowOnFilter(place) }}>
+                            onClick={() => {
+                                this.props.clearSelectedPlace()
+                                this.props.infoWindowOnFilter(place)
+                            }}>
                             {place.title}
                         </li>
                     ))}
