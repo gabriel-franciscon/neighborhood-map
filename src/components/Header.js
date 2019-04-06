@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Header extends Component {
 
+    // Toggle filter on click
     toggleFilter() {
         const filter = document.querySelector('.filter')
         filter && filter.classList.toggle('active')

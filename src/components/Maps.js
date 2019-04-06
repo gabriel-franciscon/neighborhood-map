@@ -16,8 +16,10 @@ class Maps extends Component {
         emptyMarkers: false,
     }
 
+    // Get marker URL by the color
     iconMarker = color => `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`
 
+    // Set the active marker to the state when clicking marker
     onMarkerClick = (props, marker) => {
         this.setState({
             selectedPlace: props,
@@ -26,6 +28,7 @@ class Maps extends Component {
         })
     }
 
+    // Remove the active marker to the state when clicking map
     onMapClicked = () => {
         this.state.showingInfoWindow && (
             this.setState({
@@ -35,6 +38,7 @@ class Maps extends Component {
         )
     }
 
+    // Constructs marker information to display in info window
     markerInfo = selectedPlace => {
         const { locations } = this.state
 
@@ -59,16 +63,19 @@ class Maps extends Component {
         return ''
     }
 
+    // Returns the filtered markers
     filterMarker = filteredPlaces => {
         const locationsToShow = filteredPlaces.length ? filteredPlaces : []
 		this.setState({ locationsToShow: locationsToShow })
     }
     
+    // Set emptyMarkers to true if filter search is empty
     setEmptyMarkers = filteredPlaces => {
         const emptyMarkers = !filteredPlaces.length ? true : false
         this.setState({ emptyMarkers: emptyMarkers })
     }
 
+    // Displays infoWindow when clicking on the filter items
     infoWindowOnFilter = place => {
         this.setState({
             selectedPlace: place,
@@ -85,6 +92,7 @@ class Maps extends Component {
         })
     }
 
+    // Google Map object when map loads
     mapOnReady = (mapProps, map) => {
         const { google } = mapProps
 
@@ -95,6 +103,7 @@ class Maps extends Component {
         })
     }
 
+    // Close infoWindow
     windowHasClosed = () => {
         this.state.showingInfoWindow && this.state.activeMarker.setMap(null)
         

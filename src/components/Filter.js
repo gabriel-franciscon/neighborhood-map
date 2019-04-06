@@ -9,6 +9,7 @@ class Filter extends Component {
         emptySearch: false
     }
 
+    // Filter the locations according to the text entered by the user.
     filterPlaces = query => {
 		const filteredPlaces = this.state.places.filter(location => (
 			location.title.toLowerCase().indexOf(query.toLowerCase()) !== -1)

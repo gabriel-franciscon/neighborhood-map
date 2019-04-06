@@ -7,8 +7,10 @@ import { faFoursquare } from '@fortawesome/free-brands-svg-icons'
 import { faBars, faSpinner, faExclamationTriangle, faUtensils } from '@fortawesome/free-solid-svg-icons'
 import './App.css'
 
+// Add FontAwesome icons
 library.add(faBars, faSpinner, faExclamationTriangle, faUtensils, faFoursquare)
 
+// Foursquare parameteters
 const FOURSQUARE_API = 'https://api.foursquare.com/v2/venues/explore'
 const CLIENT_ID = 'LU1LLAIZXFGH4FPXI3SEWZK3ZVOZ1HCWWYDKXD2SOJJEXCAL'
 const CLIENT_SECRET = 'SDSRLHHRFLY1SNZBXWD2MNRWEAV51VS3BGRTUDM20X22FD4E'
@@ -21,6 +23,7 @@ class App extends Component {
 		errorMessage: ''
 	}
 
+	// Get all the places with the foursquare API
 	getPlaces = () => {
 		const url = new URL(FOURSQUARE_API)
 
@@ -49,6 +52,7 @@ class App extends Component {
 				})
 			})
 			.catch(err => {
+				// In case of error, change the error attribute of state to true
 				console.error('Failed retrieving information', err)
 				this.setState({
 					error: true,
