@@ -50,7 +50,12 @@ header h1 svg {
     left: 25px;
     top: 50%;
 	transform: translateY(-50%);
+	transition: left .3s ease-in-out;
 	cursor: pointer;
+}
+
+.toggle-filter:focus {
+	color: #fff;
 }
 
 .filter {
@@ -83,6 +88,11 @@ header h1 svg {
     padding: 0 8px;
 	border-radius: 20px;
 	border: 2px solid #e53935;
+	transition: all .2s ease-in-out;
+}
+
+.filter input:focus {
+	border-color: #7f0000;
 }
 
 .filter ul {
@@ -97,9 +107,11 @@ header h1 svg {
 	line-height: normal;
 	border-bottom: 1px solid #ffebee;
 	transition: all .3s ease-in-out;
+	outline: none;
 }
 
-.filter ul > li:hover {
+.filter ul > li:hover,
+.filter ul > li:focus {
 	color: #7f0000;
 	border-color: #7f0000;
 }
@@ -136,9 +148,11 @@ header h1 svg {
 	opacity: 0.8;
 	box-shadow: 0 8px 6px -6px rgba(0,0,0,.8);
 	transition: .3s;
+	outline: none;
 }
 
-.foursquare a:hover {
+.foursquare a:hover,
+.foursquare a:focus {
 	opacity: 1;
 	box-shadow: 0 8px 6px -6px rgba(0,0,0,1);
 }
