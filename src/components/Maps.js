@@ -16,6 +16,8 @@ class Maps extends Component {
         emptyMarkers: false,
     }
 
+    iconMarker = color => `http://maps.google.com/mapfiles/ms/icons/${color}-dot.png`
+
     onMarkerClick = (props, marker) => {
         this.setState({
             selectedPlace: props,
@@ -73,7 +75,11 @@ class Maps extends Component {
             activeMarker: new window.google.maps.Marker({
                 map: this.state.map,
                 position: place.location,
-                title: place.title
+                title: place.title,
+                id: place.id,
+                icon: {
+                    url: this.iconMarker('yellow')
+                }
             }),
             showingInfoWindow: true
         })
@@ -136,6 +142,15 @@ class Maps extends Component {
                                 title={item.title}
                                 position={{ lat: item.location.lat, lng: item.location.lng }}
                                 onClick={this.onMarkerClick}
+                                icon={{
+                                    url: (
+                                        activeMarker && activeMarker.id == item.id
+                                    ) ? (
+                                        this.iconMarker('yellow')
+                                    ) : (
+                                        this.iconMarker('red')
+                                    )
+                                }}
                             />
                         ))}
 
